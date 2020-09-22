@@ -1,0 +1,245 @@
+
+
+                                "MACHINE LEARNING"
+                                 
+Analytics: 
+1) Descrptive analysis: what has happend
+ABC comapany : product : wines
+start: 2010
+2020 prsent
+
+what is the growth from 2010 to 2019.
+Analysis of past data. and find insight from it.
+Excel/BI-tools(quick view/power-bi/tableau)/Python
+
+2) Predictive Analysis: What will happen in future?
+   Machine Learning: Prediction/predictive model develop
+   Tools: Python/R-programming/Sas(stats. analysis system)
+ ML: use statistics method and algo to improve the effic and experince of user
+
+ML: 3 Phase
+
+Phase 1: Supervised ML:
+company train on thier product under the guidance of teamlead
+company testing under the guidance of teamlead
+Sucess: work on actual product
+
+ALGO UNDER SUPERVISED
+1) Regression: Regression No of case study:3
+               a) Linear Regression
+               b) Multiple linear regression
+               c) SVR: support vector Regressor from SVM
+               d) DTR: decision Tree Regressor from DT
+               e) Lasso
+               f) Rigid
+
+2) Classification: No. of case study: 6
+                   a)Logistic Regression
+                   b)KNN-K-nearest Neighbour
+                   c)DTC: decision Tree Classifier: DT
+                   d)SVC: support vector classifier: SVM(support vector machine)
+                   e)NB: Naive Bayes: GB/NB
+                   f)Ensemble Techniq
+                   g)Boosting/Bagging
+
+Project/Case study
+
+2) Phase 2: Unsupervised Machine Learning:
+    Machine: Makes its own decision/find out pattern from data on its own
+
+1) Clustering: no of case study: 2
+               a) K-mean
+               b) H-clustering
+
+2) Assocation Rule:no of case study :1 
+              a) Apriori rule
+
+PCA: principle compoent analysis
+
+Total number of project: 13 Case study from different domain
+
+** GUI BASED MACHINE LEARNING MODEL
+
+#-----------------------------------------------------------------
+python: Language-->connect with ml
+
+python has rich library collection
+ML: Library:----------------------------
+
+1)NUMPY: Numeric python
+2)PANDAS: Deals with Data-Manupulation
+3)Matplotlib-2D
+4)Seaborn-3D
+5) ML(ALGO): Sklearn-api
+
+# computer: 4gb ram
+#software: software:offline:
+Anconda:software--multiple IDE
+1) Spyder
+2) Jupyter Notebook
+
+#software online: google-colab--> jupyter notebook(virtual)
+
+#------------------------------------------------------------------
+#DATA::  What is Data???
+Data is collection of information
+
+2018~ 500ZD
+2020~ 500*90=45000ZD
+
+Data: 3 forms
+1) Structure Data: ROW/COL::TABLES:: FILE::EXCEL/CSV
+   #RDMS
+2) SEMI-STRUCTURE: Json/pickle
+   # No-sql
+3) Unstructure Data: image/vedio/audio
+   # hadoop
+
+#--------------------------------------------------------------------
+Machine Learning: What are the Step which you have to follow to form a very good model
+
+1) Business Problem: What is the case problem
+
+2) Data Collection: API/KAGGLE/GITHUB/UCI REPOSITORY/SERVER
+# ML model Desgin what is the time you require for data collection/Data Fromation??
+#assume project 100 days
+1)10-15 days
+2)25-30 days
+3)50-60 days***
+4)70-80 days
+**Information extart krni hai to data Relevant collect.
+
+3) Data(mixed--relevant+irrelevant)
+   Data Cleaning:
+         a) missing value
+         b) TEXT value 
+         c) Data differt format
+         d) Outlier
+         e) Miss-spell words
+
+
+4) Data divide train/test  Data Dep/Indp
+
+5) Model select
+
+6) model train/model testing
+
+7)model Evaluate
+
+8) Model tunning
+
+9) model final
+#-----------------------------------------------------------------
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Sep 19 15:21:26 2020
+
+@author: Abhinash
+"""
+
+#ML-PYTHON(LIBRARY)
+
+array:collection of homo data in a list
+
+data=[1,23,4,65,7,45,12.36]
+data is not an array
+#data <int> and <float>
+
+data=[12,458,15,105,15]
+data is a array
+#data <int>
+
+#----------------------------------------------
+Libaray: NUMPY
+
+NUMPY:numpy is a python library used for working with
+array and creating Ndarray. which support scientific
+computing.
+
+
+Python-datatype: list 
+array can also be form from list
+
+#I have 5 cars with thier Distance/Time
+#i have to process a  array which contain thier speed??
+
+
+dis=[500,300,200,780,450]
+tim=[6,3,2,8,6]
+spe=dis/tim
+print("Speed array is :",spe)
+
+
+dis=[500,300,200,780,450]
+tim=[6,3,2,8,6]
+try:
+    spe=dis/tim
+    print("Speed array is :",spe)
+except:
+    print("list array do not support scientific comp")
+
+#NUMPY: I can handle becoz i create
+    #ND-ARRAY
+
+'''    
+multi-line comment
+import keyword
+print(keyword.kwlist)'''
+    
+#import library
+import numpy as np
+
+#here we are creating numpy nd-array
+D=[500,300,200,780,450]
+T=[6,3,2,8,6]
+
+#creating array for distance
+#sytnx: arr=np.array(list/tuple)
+
+dis=np.array(D)
+tim=np.array(T)
+
+#check the datatype of dis/tim
+print(type(dis))
+print(type(tim))
+
+speed=dis/tim
+print("Speed nd-array is :",speed)
+speed
+
+#----------------------------------
+#what is the dimension of that array
+print(type(speed))
+print("Dimesion of array is :",speed.ndim)
+
+# you are rquire to create 2D array:
+#use nested list
+d=[[1,2,3],
+   [4,5,6],
+   [7,8,9]]
+
+array_2d=np.array(d)
+print("Dimesion of array is :",array_2d.ndim)
+print(array_2d)
+#ndim: numpy library function:
+#return the dimension of array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
