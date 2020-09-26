@@ -1,0 +1,206 @@
+
+Read a data from a table on database
+#connect your python script with database
+
+import pandas as pd
+import numpy as np
+import pymysql #module is of pymysql to connect Xampp(mysql)
+
+#you are provide a database name CMS and on that you have a table called data and
+#you are asked to extract the table data from that table
+
+#make a connection variable
+conn=pymysql.connect('localhost','root','','cms')
+data=pd.read_sql_query('select * from data',con=conn)
+print(data)
+
+#---------------------------------------------------
+Importing built in database from sklearn
+
+from sklearn.datasets import load_datasetname
+data=load_dataset_name()
+
+#eg:: load iris datasets
+from sklearn.datasets import load_iris
+data=load_iris()
+
+#-------------------------------------------------------
+#Data Cleaninig/Processing Using Pandas
+
+Data used for Ml is raw and contain relevant and irrelvant info so we only want relevant 
+Info not the irrelevant which confuse our machine.
+
+'''If your data is not clean and you apply most complex algo the performance is still low'''
+'''Where as if your Data is clean and you just apply simple algo the performace is max'''
+
+This important is Data processing lets start with:
+
+import pandas as pd
+import numpy as np
+
+d={"Name":["raman","jaman","cham","tim"],
+    "Age":[24,np.nan,28,27],
+    "Education":["PHD","PG","UG","phd"]}
+data=pd.DataFrame(d)
+print(data)
+
+#we have a datasets and lets observe the type of datatype in it
+data.info()
+
+#now lets check any missing value ??
+#@what is missing value:: any value which is missing or doest not written by user ??
+#as in the above data Mr. Jaman has missed to fill his age.
+
+#so now we have to treat this data how??
+
+#Lets check missing value
+
+data.isnull().sum()
+
+#we observe missing data in Age column and  missing vale to fill it we have to follow rule
+'''
+what type of missing value is it 1)Numeric 2)Text
+
+If numeric observe the distribution chat and use Central Tendecy Limit
+CTL: 1)mean 2)median 3)mode
+
+a)mean: Averge value of the datapoints
+   age=np.array([10,12,11,12,13])
+   print(age.mean())
+
+b)median: value which divide the data into two equal part equally
+c)mode: max occur frequency(in datasets)
+
+***Distribution is UNIFORM means the data is bell shape curve.
+UDF:: Datapoints lies on same points(mean=median=mean)
+
+***If the distribution is not UDF it will follow skewness 
+1) Right skew: Data in which distribution is mostly on left part
+2) Left Skew: Data in which distribution is mostly on right part
+
+when you find it skew most prefer method is median'''
+
+#check histogram to observe distribution
+data["Age"].plot.hist()
+
+#curve is left skew fill with median value
+
+data["Age"].fillna(data["Age"].median(),inplace=True)
+
+#or
+data['Age'].plot.hist()
+fill_val=data["Age"].median()
+fill_val
+data['Age'].fillna(25.5,inplace=True)
+data
+
+
+#--------------------------------------------------
+#if you are provide with default value to fill in age:18 then
+
+data["Age"].fillna(18,inplace=True)
+print(data)
+
+#---------------------MISSING TEXT DATA HANDLE----------------------------
+
+d={"Name":["raman","jaman","cham","tim"],
+    "Age":[24,24,28,27],
+    "Education":["PHD","PG",np.nan,"phd"]}
+data=pd.DataFrame(d)
+data
+#when you are provided with a default value
+data["Education"].fillna('HIGH SCHOOL',inplace=True)
+data
+
+#firstfill method
+d={"Name":["raman","jaman","cham","tim"],
+    "Age":[24,24,28,27],
+    "Education":["PHD","PG",np.nan,"phd"]}
+data=pd.DataFrame(d)
+data
+data["Education"].fillna(method='ffill',inplace=True)
+data
+
+#backfill method
+d={"Name":["raman","jaman","cham","tim"],
+    "Age":[24,24,28,27],
+    "Education":["PHD","PG",np.nan,"phd"]}
+data=pd.DataFrame(d)
+data
+data["Education"].fillna(method='bfill',inplace=True)
+data
+
+#---------------------MISSPELL TEXT DATA--------------------------
+import pandas as pd
+d={"Cars_model":["A6","Q7","HTY","YU"],
+   "Cars_brand":["OUDI","AUDI","Nissan","Nissana"],
+   "Price":[78,56,89,45]}
+data=pd.DataFrame(d)
+data
+'''error
+data["Cars_brand"]=pd.replace({"OUDI":"AUDI","Nissana","Nissan"})
+data
+'''
+#replace is attribute of dataframe not pd
+
+data["Cars_brand"]=data["Cars_brand"].replace({"OUDI":"AUDI",
+                                      "Nissana":"Nissan"})
+data
+data["Cars_brand"].value_counts()
+
+import pandas as pd
+d={"Cars_model":["A6","Q7","HTY","YU"],
+   "Cars_brand":["OUDI","AUDI","Nissan","Nissana"],
+   "Price":[78,56,89,45]}
+data=pd.DataFrame(d)
+data
+
+data["Cars_brand"].value_counts()
+
+#recorrect misspell words
+data["Cars_brand"]=data["Cars_brand"].replace({"OUDI":"AUDI",
+                                      "Nissana":"Nissan"})
+data
+#explore Value Count
+data["Cars_brand"].value_counts()
+
+
+#----------------------HANDLING DATETIME---------------------------
+d={"Name":["A","B","C","D"],
+   "Age":[24,26,28,29],
+   "Eduation":["PG","UG","PHD","UG"],
+   "Last_login":['15/02/2016','05/10/2017',"16/08/2014",
+                 "15/12/2019"],
+    "Recent_login":['21/09/2020','21/08/2020',
+                    '19/09/2020','21/06/2020']}
+
+df=pd.DataFrame(d)
+df
+
+df.info()
+
+data["Last_login"]=pd.to_datetime(data["Last_login"])
+df["Last_login"]=pd.to_datetime(df["Last_login"])
+df.info()
+
+#DATATYPE CHANGE TO DATETIME TO OPERATE
+df["Last_login"]=pd.to_datetime(df["Last_login"])
+df["Recent_login"]=pd.to_datetime(df["Recent_login"])
+df.info()
+
+#time difference
+days=df["Recent_login"]-df["Last_login"]
+days
+
+#convert days into dataframe
+d1={"TIME_GAP":days}
+df2=pd.DataFrame(d1)
+
+
+#Concat the data with each other : Two Dataframe add
+df3=pd.concat((df,df2),axis=1)
+print(df3)
+
+# Now you are asked to delete specific columns from data
+df3.pop('Name')
+print(df3)
