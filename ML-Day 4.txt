@@ -147,6 +147,14 @@ df1
 #-------------------------------------
 #perfer: Dummy one
 
+#how to convert dataframe to csv file
+
+df1.to_csv("path of file/abc.csv")
+
+
+
+#---------------------------------------------------
+
 #visualization: 2D(matplotlib)
 import matplotlib.pyplot as plt
 
