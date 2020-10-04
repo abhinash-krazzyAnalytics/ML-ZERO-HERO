@@ -1,0 +1,260 @@
+
+
+Machine Learning:
+    # Business problem| Case Study
+    
+#india Agri:
+    
+Farmer: 100 arc land ~~ Yield.
+Yield ~ monsoon|Area|Fertilizer|labour cost.
+
+
+#mcahine learning: 
+1) Dependent variable:Yield
+    
+2) Independent variable:monsoon|Area|Fertilizer|labour cost.
+    
+    
+# HOUSE PRICE:
+    price(house)~ area(sq.feet)+metro dist+crime rate+..
+    
+Dependent:price(house)
+Independent:area(sq.feet)+metro dist+crime rate
+
+Machine learning:
+    1) Supervised machine learning: Data Labelled
+        We know what will be the outcome
+        
+    2)Unsupervised ML: Data is not labelled
+       we dont know what will be the outcome        
+    
+   
+# SUPERVISED MACHINE LEARNING
+       1) Regression: apply when we have output data 
+                      as continous
+       # Car sales value prediction
+       #online sales prediction
+
+       2) Classification: outcome(event): class|Category
+        #Flower variety classification
+        #classify weather the customer will buy a product
+        #or not
+
+
+1) case study: newspaper sales prediction.
+
+
+STEP INVOLVE IN MACHINE LEARNING
+0) BUSINESS PROBLEM|STATEMENT
+
+1) DATA COLLECTION: kAGGLE/GIT/CLOUD/MICROSOFT/GOOGLE/BANK
+    
+2) DATA COLLEDTED : RELEVANT |IRREVANT
+    DATA CLEANING|DATA PROCESSING
+    
+3)DATA FILE: SPLIT TRAINING DATA|TESTING DATA
+    
+    
+    
+    
+#IMPORT LIBRARY
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+#data  import 
+data=pd.read_csv(r"C:\Users\Abhinash\Desktop\Advertising.csv")
+
+#lets see data
+data.head()
+#top 5 row and all colmns
+
+'''
+5 columns: relevnt|irelevant
+'''
+#data cleaning|preprocssing
+
+#Data any missing:
+data.isnull().sum()
+
+#percentage % of missing
+per=data.isnull().sum()/len(data)
+per
+
+#irevennt:: col:Unnamed: 0
+#removed
+data.pop("Unnamed: 0")
+#information data
+data.info()
+
+#shape data: row|col
+data.shape
+
+#columns name
+data.columns
+
+#-------------------------------
+#data sep dependent and independet
+#data Dep|INDEP
+Y=data["sales"]
+Y
+
+#data INDEPendent
+#col drop from dataframe
+X=data.drop(["sales"],axis=1)
+X.head()
+
+#***ASUMPTION 1
+#all X(independent variable) should have linear relationship with Y(Dependent)
+x=data["TV"]
+plt.scatter(x,Y)
+plt.plot()
+#-----------------------------------
+# No-Multi Collinearity:: Independent
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+vif = pd.DataFrame()
+vif["VIF Factor"]=[variance_inflation_factor(X.values,i) for i in range(X.shape[1])]
+vif["features"] = X.columns
+vif
+
+'''
+Agri(yield)~ equally depend(moonsoon|Fer|labour|area)
+
+Independent have different state to 
+effect the dependet variable
+
+Yield~ noida house price|Monsoon
+
+'''
+#Import Feature: Columns
+#FEATURE SELECTION
+
+#ADV CASE STUDY FEATURE: 
+#TV ***
+#RADIO *** 
+#NEWSPAPER ***
+
+import statsmodels.api as sm
+#add constant
+X_con=sm.add_constant(X)
+X_con.columns
+X_con.head()
+
+#USE OLS METHOD: Ordinary Least Square method
+fe=sm.OLS(Y,X_con).fit()
+#summary fe
+fe.summary()
+
+#Rule:
+# the column P>|t| <0.05
+#Important Feature
+
+#rule
+#P>|t| >0.05 Irrelevant
+#drop 
+
+X1=X_con.drop(['newspaper'],
+              axis=1)
+X1.head()
+
+#FE apply
+fe=sm.OLS(Y,X1).fit()
+#summary fe
+fe.summary()
+
+#MACHINE LEARNING: LinearRegression
+#------------------------------
+#IMP COL: TV|RADIO
+indp=X.loc[0:,['TV','radio']]
+indp.head()
+
+#-------------------------------------------
+#data split
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(indp,Y,
+                              test_size=0.30)
+
+#lets observe total wrt train|testing
+
+data.shape
+#(200) Row
+
+#training
+print(200*.70)
+x_train.shape
+
+#testing
+print(200*.30)
+x_test.shape
+
+#------------MODEL(select)
+#Y: dependent variable:: Nature(Cont|Cate)
+# We will go for regression
+#sklearn model ~ LinearRegression
+
+from sklearn.linear_model import LinearRegression
+#model create
+model=LinearRegression()
+
+#------------MODEL TRAIN
+#model training: datasets train|test
+model.fit(x_train,y_train)
+
+#------------MODEL TEST
+#model test: preediction(sales)
+#sales: y_test(atucal data)
+#prediction: basis on X{radio|TV}
+
+y_pred=model.predict(x_test)
+#--------------------------------
+print(y_pred)
+
+#ref datasets
+ref=pd.DataFrame({"Actual_data(Y)":y_test,
+                 "Prediceted_Yp(test)":y_pred})
+final=pd.concat((x_test,ref),axis=1)
+# dataframe convert CSV file
+final.to_csv("resultdata_LR_ADV.csv")
+    
+#model Accuarte????
+#model is good or not???
+#------------PARAMETER MODEL EVALUATE
+1) R2: Provide the seperation between 
+       Actual and predicted
+       R2 value: 0-1
+       
+from sklearn.metrics import r2_score
+print("R2 of Model is:",r2_score(y_test,y_pred))
+
+#-------------
+plt.scatter(y_test,y_pred)
+plt.plot
+#--------------
+
+2) Mean_squared_error:
+    MSE:
+    RMSE:
+    AMSE:
+#lets calculate model mse
+        
+from sklearn.metrics import mean_squared_error
+print("MSE OF MODEL IS:",mean_squared_error(y_test,y_pred))
+
+#RMSE: ROOT MEAN SQUARED ERROR
+import math
+print("RMSE OF MODEL IS:",math.sqrt(mean_squared_error(y_test,y_pred)))
+
+while(True):
+    print("ADVERT. PREDICTION MACHINE")
+    print(" ")
+    print("1: predicition 2:exit")
+    ch=int(input("Enter Choice :"))
+    if(ch==1):
+        tv=float(input("Enter Amount to be invested TV in Adv :"))
+        rd=float(input("Enter Amount to be invested TV in Adv :"))
+        TEST=[tv,rd]
+        #model test : 2D array
+        pred=model.predict([TEST,])
+        print("Predicted Sales amount is:",pred)
+    elif(ch==2):
+        break
