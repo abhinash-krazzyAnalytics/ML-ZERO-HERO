@@ -4,43 +4,6 @@ Created on Sat Oct 17 13:54:53 2020
 
 @author: Abhinash
 """
-
-Machine Learning Class 
-Batch will start 2:00 pm
-
-Supervised: data is Labeled
-
-Linear Regression:
-    what case study
-    fundamental apply it
-    model
-    model evalution metric
-    DVT(model performance)
-    
-    Regression: LR|MLR|LASSO|DTR(Decision Tree Regressor)
-    |SVR(support vector Regressor)
-    Data: Continuous
-
-Classification:
-    problem statement(Data Labeled):Binary|classes
-        
-case : weather it will rain today: event: YES|NO
-
-case: plant species classifiy: plant:(3,4,5,6,,7)
-class more than 2 multi class classification
-        
-classification: a)Logistic Regression
-                b) Support Vector Machine:
-            classification   support vector classifier
-            Regression       support vector Regressor
-                     
-               c) Decision Tree:
-                    class Decision Tree Classifier:
-                    reg   Decision Tree Regressor
-               d) KNN- K Nearest Neighbors
-               e) Naive Bayes(text classification)
-                  Text classification
-               Ensemble technique
               
 CASE STUDY: Predicting the survival rate in Titanic Disaster
 #source: Kaggle
@@ -399,12 +362,6 @@ pred=model.predict(x_test)
 from sklearn.metrics import accuracy_score
 print("Model Accuracy is :",accuracy_score(y_test,pred))
 
-#---------------------------------------------
-#THEORY : LOGISTIC | METRICS EVALTE MODEL
-CONFUSION MATRIX
-ROC
-AUC
-K-FOLD
 
 
 
